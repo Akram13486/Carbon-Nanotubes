@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score,mean_squared_error
@@ -42,3 +43,18 @@ print(rfr_accuracy)
 print(mean_squared_error(ytest,lr_pred))
 print(mean_squared_error(ytest,rfr_pred))
 print(mean_squared_error(ytest,dt_pred))
+
+#Logistic Regression
+X = data[["Initial atomic coordinate w" ]]
+y = data["Calculated atomic coordinates u'"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+classifier = LogisticRegression(random_state=0)
+classifier.fit(X_train, y_train)
+y_pred = classifier.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+confusion_mat = confusion_matrix(y_test, y_pred)
+
+# Print the results
+print("Accuracy: ", accuracy)
+print("Confusion matrix:\n", confusion_mat)
